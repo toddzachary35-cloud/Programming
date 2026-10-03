@@ -23,24 +23,20 @@ Goal is **breadth first** — get comfortable across multiple languages — then
 ## 📁 Repo Structure
 
 ```
-programming-journey/
-├── python/
-├── cpp/
-├── csharp/
-├── javascript/
-├── html-css/
-├── java/
-├── sql/
+Programming/
+├── Python/       # in progress
+├── C++/          # in progress
+├── HTML-CSS/     # planned
 └── README.md
 ```
 
-Each language folder contains its own projects/exercises, and a short README where it's useful to explain what a project does or what I learned building it.
+More language folders (C#, JavaScript, Java, SQL) will be added as I start on them. Each language folder contains its own projects/exercises, and a short README where it's useful to explain what a project does or what I learned building it.
 
 ---
 
 ## 🎯 Why this exists
 
-I'm learning to code alongside my cybersecurity path (see [My-security-journey-](https://github.com/) for that side of things). Programming skills like Python and C++ come up constantly in security — scripting, exploit dev, tool building — so this repo is where I practice and document that separately from the security-specific writeups.
+I'm learning to code alongside my cybersecurity path (see [my-security-journey](https://github.com/toddzachary35-cloud/my-security-journey) for that side of things). Programming skills like Python and C++ come up constantly in security — scripting, exploit dev, tool building — so this repo is where I practice and document that separately from the security-specific writeups.
 
 ---
 
