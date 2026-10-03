@@ -1,7 +1,3 @@
-"""List saved Wi-Fi profiles in a readable format."""
-
-import platform
-import subprocess
 """List saved Wi-Fi profiles and scan the currently connected Wi-Fi network."""
 
 import ipaddress
@@ -148,73 +144,6 @@ def main():
 		print(f"Required command not found: {error.filename}")
 	except (RuntimeError, ET.ParseError, json.JSONDecodeError) as error:
 		print(f"Could not complete the Wi-Fi scan: {error}")
-
-
-if __name__ == "__main__":
-	main()
-
-
-def run_command(command):
-	"""Run a system Wi-Fi command and return its output."""
-	result = subprocess.run(
-		command,
-		capture_output=True,
-		text=True,
-		check=False,
-	)
-	if result.returncode != 0:
-		message = result.stderr.strip() or "the command failed"
-		raise RuntimeError(message)
-	return result.stdout
-
-
-def get_profiles():
-	"""Get saved Wi-Fi profile names for the current operating system."""
-	if platform.system() == "Windows":
-		output = run_command(["netsh", "wlan", "show", "profiles"])
-		profiles = []
-		for line in output.splitlines():
-			if "All User Profile" in line:
-				profiles.append(line.split(":", 1)[1].strip())
-		return profiles
-
-	if platform.system() == "Linux":
-		output = run_command(["nmcli", "-t", "-f", "NAME,TYPE", "connection", "show"])
-		return [
-			name
-			for line in output.splitlines()
-			for name, connection_type in [line.rsplit(":", 1)]
-			if connection_type == "802-11-wireless"
-		]
-
-	raise RuntimeError("This operating system is not supported.")
-
-
-def display_profiles(profiles):
-	"""Print profiles as a simple table."""
-	title = "Saved Wi-Fi Profiles"
-	print(f"\n{title}")
-	print("=" * len(title))
-
-	if not profiles:
-		print("No saved Wi-Fi profiles found.")
-		return
-
-	width = max(len(str(len(profiles))), 2)
-	print(f"{'#':>{width}}  Profile name")
-	print(f"{'-' * width}  {'-' * 30}")
-	for index, profile in enumerate(profiles, start=1):
-		print(f"{index:>{width}}  {profile}")
-	print(f"\nTotal: {len(profiles)} profile(s)")
-
-
-def main():
-	try:
-		display_profiles(get_profiles())
-	except FileNotFoundError:
-		print("Wi-Fi manager command not found. Install NetworkManager/nmcli.")
-	except RuntimeError as error:
-		print(f"Could not list Wi-Fi profiles: {error}")
 
 
 if __name__ == "__main__":
